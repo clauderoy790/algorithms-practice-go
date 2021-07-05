@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Algorithms practice")
+	fmt.Println("Algorithms practice!")
 
 	var iface resolver = &code_wars.CodeWars{}
 	iface.Resolve()

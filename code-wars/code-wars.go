@@ -14,30 +14,46 @@ func (cw *CodeWars) Resolve() {
 }
 
 func chocolate_res() {
-a := []int {8, -89, -1, 12, 48, -55, -89, 28, -59, -11, 50}
-b := []int {1, 64, 121, 144, 784, 2304, 2500, 3025, 3481, 7921, 7921}
-fmt.Println("comp: ",Comp(a,b))
+//a := []int{121,144,19,161,19,144,19,11}
+//b := []int{121,14641,20736,361,25921,361,20736,361}
+//c := []int{121,144,19,161,19,144,19,11}
+//d := []int{231,14641,20736,361,25921,361,20736,361}
+//e := []int{641,20736,36100,25921,361,20736,361}
+g := []int {2,2,3}
+h := []int {4,9,9}
+fmt.Println("comp: ",Comp(g,h))
 }
 
 func Comp(a []int, b []int) bool {
-	if a == nil || b == nil || len(b) == 0 {
+	if a == nil || b == nil || len(b) != len(a) {
 		return false
 	}
 
-	squared := make([]int,len(a))
+	squared := make([]int, len(a)) // make new slice and append all a numbers squared
 	for i, nb := range a {
-		squared[i] = nb*nb
+		squared[i] = nb * nb
 	}
-	fmt.Printf("a: %v, b: %v",a,b)
+	fmt.Printf("a: %v, b: %v", a, b)
 
-	for _, nb := range b {
-		if !contains(squared,nb) {
+	for _, nb := range b { // loop through squared elements
+		if ind := indexOf(squared, nb); ind == -1 { // check if they are contained in b
+			fmt.Printf("%v isnt there", b)
 			return false
 		} else {
-
+			squared[ind] = squared[len(squared)-1]              // replace index with last element of slice
+			squared = append(squared[:ind], squared[ind+1:]...) //shrink array
 		}
 	}
 	return true
+}
+
+func indexOf(s []int, e int) int {
+	for i, a := range s {
+		if a == e {
+			return i
+		}
+	}
+	return -1
 }
 
 func contains(s []int, e int) bool {
