@@ -1,17 +1,18 @@
 package main
 
 import (
-	ip_validation "algorithms-practice/ip-validation"
+	code_wars "algorithms-practice/code-wars"
 	"fmt"
 )
 
 func main() {
 	fmt.Println("Algorithms practice")
-	//linked_list.LinkedListEx()
-	//remove_islands.RemoveIslandsEx()
-	//domain_resolver.Resolve()
-	//microsoft_vertex_distance.ResolveStack()
-	//microsoft_vertex_distance.Resolve()
-	ip_validation.Resolve()
+
+	var iface resolver = &code_wars.CodeWars{}
+	iface.Resolve()
+}
+
+type resolver interface {
+	Resolve()
 }
 
