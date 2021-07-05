@@ -10,10 +10,12 @@ import (
 type CodeWars struct {}
 
 func (cw *CodeWars) Resolve() {
-	chocolate_res()
+	s1 := DNAStrand("ATTGC")
+	s2 := DNAStrand("GTAT")
+	fmt.Printf("s1: %v, s2: %v",s1,s2)
 }
 
-func chocolate_res() {
+func chocolateRes() {
 //a := []int{121,144,19,161,19,144,19,11}
 //b := []int{121,14641,20736,361,25921,361,20736,361}
 //c := []int{121,144,19,161,19,144,19,11}
@@ -33,15 +35,13 @@ func Comp(a []int, b []int) bool {
 	for i, nb := range a {
 		squared[i] = nb * nb
 	}
-	fmt.Printf("a: %v, b: %v", a, b)
 
-	for _, nb := range b { // loop through squared elements
-		if ind := indexOf(squared, nb); ind == -1 { // check if they are contained in b
-			fmt.Printf("%v isnt there", b)
-			return false
-		} else {
-			squared[ind] = squared[len(squared)-1]              // replace index with last element of slice
+	for _, nb := range b { // loop b elements until we find one that is not contained in squared
+		if ind := indexOf(squared, nb); ind != -1 { // check if they are contained in b
+			squared[ind] = squared[len(squared)-1] // replace index with last element of slice
 			squared = append(squared[:ind], squared[ind+1:]...) //shrink array
+		} else {
+			return false
 		}
 	}
 	return true
@@ -97,4 +97,32 @@ func is_valid_ip(ip string) bool {
 		return true
 	}
 	return false
+}
+
+var complements = map[rune]rune {
+	'A':'T',
+	'T':'A',
+	'C':'G',
+	'G':'C',
+}
+
+func DNAStrand(dna string) string {
+	runes := []rune(dna)
+
+	for i, r := range runes { // loop through each characters
+		if c, ok := findComplement(r);ok {
+			runes[i] = c
+		}
+	}
+	return string(runes)
+}
+
+func findComplement(r rune) (compl rune,ok bool) {
+	for k, v := range complements {
+		if k == r {
+			ok = true
+			compl = v
+		}
+	}
+	return
 }
