@@ -2,9 +2,9 @@ package remove_islands
 
 import "fmt"
 
-//{0, 1, 1, 1, 0, 0},
+var output [][]int
 
-var matrix = [6][6]int{
+var matrix = [][]int{
 	{1, 0, 0, 0, 0, 0},
 	{0, 1, 0, 1, 1, 1},
 	{0, 0, 1, 0, 1, 0},
@@ -13,87 +13,102 @@ var matrix = [6][6]int{
 	{1, 0, 0, 0, 0, 1},
 }
 
-var matrix2 = [6][6]int{
-	{0, 0, 0, 0, 0, 0},
-	{0, 0, 0, 1, 1, 1},
-	{0, 0, 0, 0, 0, 0},
-	{1, 1, 0, 0, 0, 0},
-	{1, 0, 0, 0, 0, 0},
-	{1, 0, 0, 0, 0, 1},
+//var matrix2 = [][]int{
+//	{0, 0, 0, 0, 0, 0},
+//	{0, 0, 0, 1, 1, 1},
+//	{0, 0, 0, 0, 1, 0},
+//	{1, 1, 0, 0, 1, 0},
+//	{1, 0, 0, 0, 0, 0},
+//	{1, 0, 0, 0, 0, 1},
+//}
+
+var borderPoints []Point
+
+var neighbors = []Point{
+	{0,-1}, 	// top
+	{1,0},	// right
+	{0,1},	// bot
+	{-1,0},	// left
 }
 
-func RemoveIslandsEx() {
+type IslandsRemover struct {}
+
+func (isl *IslandsRemover) Resolve() {
 	fmt.Println("before:")
-	printMatrix()
+	printMatrix(matrix)
 	removeIslands()
 	fmt.Println("after:")
-	printMatrix()
+	printMatrix(output)
 }
 
 func removeIslands() {
-	for i := 1; i < len(matrix)-1; i++ {
-		for j := 1; j < len(matrix[0])-1; j++ {
-			var left, right, bot, top int
-			for left = -1; left < len(matrix[i]); {
-				if left >= 0 && matrix[i][left] == 1 {
-					left++
-				} else {
-					break
-				}
-			}
-			for right = len(matrix[i]); right > 0; {
-				if matrix[i][right-1] == 1 {
-					right--
-				} else {
-					break
-				}
-			}
-			for top = -1; top < len(matrix); {
-				if top >= 0 && matrix[top][j] == 1 {
-					top++
-				} else {
-					break
-				}
-			}
-			for bot = len(matrix); bot > 0; {
-				if matrix[bot-1][j] == 0 {
-					bot--
-				} else {
-					break
-				}
-			}
+	output = createSameSizeMatrix(matrix)
+	borderPoints = createBorderPointList()
 
-			if j == 4 && i == 1 {
-				fmt.Println(fmt.Sprintf("l:%v, t:%v, r:%v, b:%v",left,top,right,bot))
-			}
+	for _,pt := range borderPoints {
+		addIslandAndNeighborsToOutput(pt)
+	}
+}
 
-			if matrix[i][j] == 1 && j > left && j < right && i > top && j < bot {
-				matrix[i][j] = 0
-			}
+func createBorderPointList() []Point {
+	var pts []Point
+
+	for x,y := 0,0; x <len(matrix[0]); x++ { // top borderPoints points
+		pts = append(pts,Point{x,y})
+	}
+
+	for x,y := len(matrix[0])-1,0; y < len(matrix);y++ { // right borderPoints points
+		pts = append(pts,Point{x,y})
+	}
+
+	for x,y := 0,len(matrix)-1; x < len(matrix[0]);x++ { // bottom borderPoints points
+		pts = append(pts,Point{x,y})
+	}
+
+	for x,y := 0,0; y < len(matrix);y++ { // left borderPoints points
+		pts = append(pts,Point{x,y})
+	}
+	return pts
+}
+
+func addIslandAndNeighborsToOutput(point Point) {
+	if !isIslandInOutput(point) && isIsland(point) {
+		output[point.x][point.y] = 1
+		for _,nb := range neighbors {
+			neighborPt := Point{point.x+nb.x,point.y+nb.y}
+			addIslandAndNeighborsToOutput(neighborPt)
+
 		}
 	}
 }
 
-func isConnectedBeforeLeft() bool {
-	return true
-}
-
-func isConnectedBeforeTop() {
-
-}
-
-func isConnectedAfterRight() {
-
-}
-
-func isConnectedAfterBottom() {
-
-}
-
-func printMatrix() {
-	for i := 0; i < len(matrix); i++ {
-		//for j := 0; j <len(matrix[0]);j++ {
-		//}
-		fmt.Println(matrix[i])
+func createSameSizeMatrix(matrix [][]int) [][]int {
+	mat := make([][]int, len(matrix))
+	for i := range mat {
+		mat[i] = make([]int, len(matrix[0]))
 	}
+
+	return mat
+}
+
+func isIslandInOutput(pt Point) bool {
+	return isInBounds(pt) && output[pt.x][pt.y] == 1
+}
+
+func isInBounds(pt Point) bool {
+	return pt.x >= 0 && pt.x < len(matrix[0]) && pt.y >= 0 && pt.y < len(matrix)
+}
+
+func isIsland(pt Point) bool {
+	return isInBounds(pt) && matrix[pt.x][pt.y] == 1
+}
+
+func printMatrix(ma [][]int) {
+	for i := 0; i < len(ma); i++ {
+		fmt.Println(ma[i])
+	}
+}
+
+type Point struct {
+	x, y int
 }

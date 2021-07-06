@@ -1,14 +1,14 @@
 package main
 
 import (
-	code_wars "algorithms-practice/code-wars"
+	remove_islands "algorithms-practice/remove-islands"
 	"fmt"
 )
 
 func main() {
 	fmt.Println("Algorithms practice!")
 
-	var iface resolver = &code_wars.CodeWars{}
+	var iface resolver = &remove_islands.IslandsRemover{}
 	iface.Resolve()
 }
 
