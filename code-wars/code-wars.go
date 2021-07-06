@@ -10,20 +10,7 @@ import (
 type CodeWars struct {}
 
 func (cw *CodeWars) Resolve() {
-	s1 := DNAStrand("ATTGC")
-	s2 := DNAStrand("GTAT")
-	fmt.Printf("s1: %v, s2: %v",s1,s2)
-}
-
-func chocolateRes() {
-//a := []int{121,144,19,161,19,144,19,11}
-//b := []int{121,14641,20736,361,25921,361,20736,361}
-//c := []int{121,144,19,161,19,144,19,11}
-//d := []int{231,14641,20736,361,25921,361,20736,361}
-//e := []int{641,20736,36100,25921,361,20736,361}
-g := []int {2,2,3}
-h := []int {4,9,9}
-fmt.Println("comp: ",Comp(g,h))
+	fmt.Println("nb dig for 25 1, : ",NbDig(25,1))
 }
 
 func Comp(a []int, b []int) bool {
@@ -126,3 +113,17 @@ func findComplement(r rune) (compl rune,ok bool) {
 	}
 	return
 }
+
+func NbDig(n int, d int)  (nbDig int) {
+	if n < 0 || d < 0 || d > 9 {
+		return
+	}
+
+	digStr := strconv.Itoa(d)
+	for i := 0; i<= n; i++ { // square numbers
+		nbDig += strings.Count(strconv.Itoa(i*i),digStr)
+	}
+
+	return
+}
+

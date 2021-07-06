@@ -77,7 +77,6 @@ func addIslandAndNeighborsToOutput(point Point) {
 		for _,nb := range neighbors {
 			neighborPt := Point{point.x+nb.x,point.y+nb.y}
 			addIslandAndNeighborsToOutput(neighborPt)
-
 		}
 	}
 }
