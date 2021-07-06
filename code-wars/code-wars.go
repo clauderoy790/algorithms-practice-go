@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 type CodeWars struct {}
@@ -127,3 +128,19 @@ func NbDig(n int, d int)  (nbDig int) {
 	return
 }
 
+func toWeirdCase(str string) string {
+	runes := []rune(str)
+	ind := 0
+	for i, ru := range runes {
+		if unicode.IsSpace(ru) {
+			ind = -1
+		}
+		if ind % 2 == 0 {
+			runes[i] = unicode.ToUpper(ru)
+		} else {
+			runes[i] = unicode.ToLower(ru)
+		}
+		ind++
+	}
+	return string(runes)
+}
