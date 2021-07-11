@@ -206,7 +206,7 @@ func TestSolution(t *testing.T) {
 		"babaa":2,
 		"ababa":4,
 		"aba":0,
-		//"bbbbb":6,
+		"bbbbb":6,
 	}
 
 	for k, v := range tests {

@@ -14,7 +14,8 @@ type StringSplit struct{}
 // Find how many different way you can split
 
 func (ht *StringSplit) Resolve() {
-	s := "ababa"
+	s := "bbbbb"
+	//s := "ababa"
 	//s := "babaa"
 	fmt.Println("string split problem!!")
 	fmt.Printf("Solution is: %v\n", Solution(s))
@@ -36,17 +37,14 @@ func Solution(S string) int {
 
 		//stack size will always be 1 or 2
 		aCnt := ACount(part)
-		if stack.size() == 0 && aCnt > nbA {
-			fmt.Println("is it over?")
+		if stack.size() == 0 && (aCnt > nbA || len(part) == len(S)-1) {
 			break
 		} else if i == len(runes)-1 {
 			if stack.size() == 2 {
 				count++
-				fmt.Printf("Add: %v, current: %v\n",stack,part)
 			}
 			v, _ := stack.pop()
 			i,part = v.index,v.text
-			fmt.Printf("set at %v, part %v\n",i,part)
 		} else if stack.size() < 2 && aCnt == nbA {
 			stack.push(SentencePart{part,i})
 			part = ""
@@ -55,33 +53,6 @@ func Solution(S string) int {
 
 	return count
 }
-
-
-
-//for i := 0; i < len(runes);i++ {
-//part += string(runes[i])
-//
-//if cnt := ACount(part); cnt == nbA || i == len(runes)-1 {
-//stack.push(SentencePart{part,i})
-//fmt.Printf("part %v: %v\n",stack.size(),part)
-//part = ""
-//if stack.size() == 3 {
-//count++
-//fmt.Println("size is 3!")
-//v, _ := stack.pop()
-//part, i = v.text, v.index
-//fmt.Println("continue at : ",i)
-//}
-//} else if cnt > nbA {
-//if stack.size() == 1 {
-//break
-//fmt.Println("done!!")
-//} else {
-//v, _ := stack.pop()
-//part, i = v.text, v.index
-//}
-//}
-//}
 
 func newSentencePart() SentencePart {
 	return SentencePart{"",-1}
