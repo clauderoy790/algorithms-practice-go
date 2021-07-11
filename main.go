@@ -1,7 +1,7 @@
 package main
 
 import (
-	hacker_rank_thirty "algorithms-practice/hacker-rank-thirty"
+	string_split "algorithms-practice/string-split"
 	"fmt"
 )
 
@@ -11,8 +11,8 @@ func main() {
 	//var iface resolver = &remove_islands.IslandsRemover{}
 	//var iface resolver = &hacker_rank.HackerRank{}
 	//var iface resolver = &codility.Codility{}
-	//var iface resolver = &home_test.HomeTest{}
-	var iface resolver = &hacker_rank_thirty.HackerRankThirty{}
+	//var iface resolver = &hacker_rank_thirty.HackerRankThirty{}
+	var iface resolver = &string_split.StringSplit{}
 	iface.Resolve()
 }
 
