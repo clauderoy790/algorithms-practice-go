@@ -8,11 +8,6 @@ import (
 
 type StringSplit struct{}
 
-//split it into 3 NON empty parts
-// Length doesn't matter as long as > 1
-// each part must contain the same number of letters a
-// Find how many different way you can split
-
 func (ht *StringSplit) Resolve() {
 	s := "bbbbb"
 	//s := "ababa"
