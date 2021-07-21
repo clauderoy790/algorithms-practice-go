@@ -1,7 +1,7 @@
 package main
 
 import (
-	code_wars "algorithms-practice/code-wars"
+	hacker_rank_thirty "algorithms-practice/hacker-rank-thirty"
 	"fmt"
 )
 
@@ -11,9 +11,9 @@ func main() {
 	//var iface resolver = &remove_islands.IslandsRemover{}
 	//var iface resolver = &hacker_rank.HackerRank{}
 	//var iface resolver = &codility.Codility{}
-	//var iface resolver = &hacker_rank_thirty.HackerRankThirty{}
+	var iface resolver = &hacker_rank_thirty.HackerRankThirty{}
 	//var iface resolver = &string_split.StringSplit{}
-	var iface resolver = &code_wars.CodeWars{}
+	//var iface resolver = &code_wars.CodeWars{}
 	iface.Resolve()
 }
 
