@@ -38,7 +38,7 @@ func TestACountPerPart(t *testing.T) {
 }
 
 func TestSentencePartNew(t *testing.T) {
-	s := newSentencePart()
+	s := NewSentencePart()
 	if len(s.text) > 0 {
 		t.Errorf("new sentence part's text should be empty, but has text %v",s.text)
 	}
@@ -76,7 +76,7 @@ func TestStackSize(t *testing.T) {
 }
 
 func TestSentencePartSetValues(t *testing.T) {
-	s := newSentencePart()
+	s := NewSentencePart()
 	s.index = 2
 	s.text = "salut"
 	if s.index != 2 {
@@ -101,7 +101,7 @@ func TestStackNewEmpty(t *testing.T) {
 
 func TestStackPushOne(t *testing.T) {
 	s := Stack{}
-	st := newSentencePart()
+	st := NewSentencePart()
 	s.push(st)
 	if s.isEmpty() {
 		t.Errorf("Stack should not be empty after inserting an element")

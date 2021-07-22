@@ -11,7 +11,7 @@ import (
 type HackerRankThirty struct{}
 
 func (hr *HackerRankThirty) Resolve() {
-	dayNine()
+	dayTen()
 }
 
 func scannerExample() {
@@ -69,7 +69,7 @@ func daySeven() {
 	//sl := make([]int,nb)
 
 	scanner.Scan()
-	strs := strings.Split(scanner.Text()," ")
+	strs := strings.Split(scanner.Text(), " ")
 
 	for i, j := 0, len(strs)-1; i < j; i, j = i+1, j-1 {
 		strs[i], strs[j] = strs[j], strs[i]
@@ -81,16 +81,16 @@ func daySeven() {
 func dayEight() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-	nb,err := strconv.Atoi(scanner.Text())
+	nb, err := strconv.Atoi(scanner.Text())
 
 	if err != nil {
-		fmt.Println("error scanning number: ",err)
+		fmt.Println("error scanning number: ", err)
 	}
 
 	m := make(map[string]int)
-	for i := 0;i < nb; i++ {
+	for i := 0; i < nb; i++ {
 		scanner.Scan()
-		sl := strings.Split(scanner.Text()," ")
+		sl := strings.Split(scanner.Text(), " ")
 		if len(sl) != 2 {
 			panic("need to only have one space in the string")
 		}
@@ -101,13 +101,13 @@ func dayEight() {
 		m[sl[0]] = v
 	}
 
-	for scanner.Scan(){
+	for scanner.Scan() {
 		key := scanner.Text()
 		if len(key) == 0 {
 			break
 		}
 		if v, ok := m[key]; ok {
-			fmt.Printf("%v=%v\n",key,v)
+			fmt.Printf("%v=%v\n", key, v)
 		} else {
 			fmt.Println("Not found")
 		}
@@ -131,10 +131,35 @@ func dayNine() {
 		} else if n == 1 {
 			return 1
 		} else {
-			return n* fac(n-1)
+			return n * fac(n-1)
 		}
 	}
 
 	res := fac(nb)
 	fmt.Println(res)
+}
+
+func dayTen() {
+	scanner := bufio.NewScanner(os.Stdin)
+
+	scanner.Scan()
+	nb, err := strconv.Atoi(scanner.Text())
+	if err != nil {
+		panic(err)
+	}
+
+	biStr := strconv.FormatInt(int64(nb), 2)
+	maxOne, adjacentOne := 0, 0
+	for _, r := range biStr {
+		isOne := rune(r) == '1'
+		if isOne {
+			adjacentOne++
+		} else {
+			adjacentOne = 0
+		}
+		if adjacentOne > maxOne {
+			maxOne = adjacentOne
+		}
+	}
+	fmt.Println(maxOne)
 }
