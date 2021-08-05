@@ -1,0 +1,4 @@
+feature1
+feature2 cool addon
+feature3 how cool is that
+feature4 amazing
